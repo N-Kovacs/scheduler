@@ -21,6 +21,7 @@ const cancel = () => {
   reset()
   props.onCancel()
   
+  
 }
 const save = () => {
   props.onSave(student)
@@ -37,7 +38,7 @@ const save = () => {
         name="name"
         type="text"
         placeholder="Enter Student Name"
-        value = {props.student && props.student}
+        value = {props.student}
         onChange={(event) => setStudent(event.target.value)}
       />
 
