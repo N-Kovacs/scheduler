@@ -15,3 +15,22 @@ export function getAppointmentsForDay(state, day) {
   }
   return output
 }
+
+export function getInterview(state, interview) {
+  let output = null
+
+  if (interview){
+    let iName = state.interviewers[interview.interviewer].name
+    let iAvatar = state.interviewers[interview.interviewer].avatar
+    output = {
+      student: interview.student,
+      interviewer:{
+        id:interview.interviewer,
+        name: iName,
+        avatar: iAvatar
+      }
+    }
+  }
+
+  return output
+}
