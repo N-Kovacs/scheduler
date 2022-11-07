@@ -10,6 +10,7 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const test=student
+  console.log(props.interviewers)
 
 
 
@@ -26,9 +27,10 @@ const cancel = () => {
   
 }
 const save = () => {
-  props.onSave(student)
+  console.log(student, interviewer)
+  props.onSave(student, interviewer)
 }
-console.log(props.interviewers)
+
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -47,7 +49,7 @@ console.log(props.interviewers)
 
     </form>
     <InterviewerList 
-      interviewers= {[]}
+      interviewers= {props.interviewers}
       setInterviewer={setInterviewer}
       interviewer={interviewer}
     />
