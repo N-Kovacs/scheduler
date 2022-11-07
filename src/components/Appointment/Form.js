@@ -6,10 +6,12 @@ import InterviewerList from "components/InterviewerList";
 
 
 
-export default function Empty(props) {
+export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const test=student
+
+
 
 const reset = () => {
   setStudent("")
@@ -26,6 +28,7 @@ const cancel = () => {
 const save = () => {
   props.onSave(student)
 }
+console.log(props.interviewers)
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -44,7 +47,7 @@ const save = () => {
 
     </form>
     <InterviewerList 
-      interviewers= {props.interviewers}
+      interviewers= {[]}
       setInterviewer={setInterviewer}
       interviewer={interviewer}
     />

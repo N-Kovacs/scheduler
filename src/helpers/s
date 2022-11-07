@@ -1,0 +1,18 @@
+export function getInterviewersForDay(state, day) {
+  let output = []
+  const filteredinterviewers = state.days.filter(id => id.name === day)
+  if(filteredinterviewers[0]){
+
+    for(let search in state.interviewers){
+      for(let numApp of filteredinterviewers[0].interviewers)
+      if (state.interviewers[search].id === numApp){
+        output.push(state.interviewers[search])
+      } 
+    }
+
+  }
+  return output
+
+
+
+}

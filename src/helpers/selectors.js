@@ -36,19 +36,23 @@ export function getInterview(state, interview) {
   return output
 }
 
+
 export function getInterviewersForDay(state, day) {
-  let appointments = getAppointmentsForDay(state, day)
-  let output = [];
-  //console.log("app:")
-  //console.log(appointments)
-  for (let appointment of appointments){
-    //console.log(appointment)
-    if(appointment.interview){
-      output.push(getInterview(state, appointment.interview).interviewer)
+  let output = []
+  const filteredinterviewers = state.days.filter(id => id.name === day)
+  if(filteredinterviewers[0]){
+
+    for(let search in state.interviewers){
+      for(let numApp of filteredinterviewers[0].interviewers)
+      if (state.interviewers[search].id === numApp){
+        output.push(state.interviewers[search])
+      } 
     }
+
   }
- 
+  console.log(output)
   return output
+
 
 
 }
