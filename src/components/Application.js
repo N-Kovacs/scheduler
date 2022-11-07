@@ -82,7 +82,7 @@ export default function Application(props) {
       axios.get("/api/days"),
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
-      // axios.get("/api/debug/reset")
+      //axios.get("/api/debug/reset")
     ]).then((all) => {
       setState((prev) => ({
         ...prev,
