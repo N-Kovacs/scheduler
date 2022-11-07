@@ -13,6 +13,7 @@ import {
 } from "helpers/selectors";
 
 export default function Application(props) {
+  
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -21,32 +22,34 @@ export default function Application(props) {
   });
 
   function bookInterview(id, interview) {
-      return axios
-      .put("/api/appointments/"+id, {interview:interview})
-      .then((resolve)=>{
-      console.log(id, interview);
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview }
-      };
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-      console.log("here")
-      setState({
-        ...state,
-        appointments
+    return axios
+      .put("/api/appointments/" + id, { interview: interview })
+      .then((resolve) => {
+        // console.log(id, interview);
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview },
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment,
+        };
+        // console.log("here")
+        setState({
+          ...state,
+          appointments,
+        });
       });
+  }
+  function cancelInterview(id){
+
+    return axios
+    .delete("/api/appointments/" + id, {interview: null})
+    .then((resolve) => {
+      // console.log(id, interview);
+
     });
-
-
-
-
-
-    }
-
-
+  }
 
   const setDay = (day) => setState({ ...state, day });
 
@@ -54,14 +57,12 @@ export default function Application(props) {
   //   setState(prev => ({ ...prev, days }));
   // }
 
-
-  console.log(state);
+  // console.log(state);
   let dailyAppointments = getAppointmentsForDay(state, state.day);
-  console.log(dailyAppointments);
+  // console.log(dailyAppointments);
   let Mapappointments = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     const interviewersDay = getInterviewersForDay(state, state.day);
-
 
     return (
       <Appointment
@@ -71,6 +72,7 @@ export default function Application(props) {
         interviewers={interviewersDay}
         time={appointment.time}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -111,10 +113,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {Mapappointments}
-        <Appointment
-          key="last"
-          time="5pm"
-        />
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
