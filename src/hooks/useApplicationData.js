@@ -13,8 +13,8 @@ export default function useApplicationData(){
     
   
     const setDay = (day) => setState({ ...state, day });
-  
-  
+    
+
     function bookInterview(id, interview) {
       return axios
         .put("/api/appointments/" + id, { interview: interview })
@@ -28,12 +28,14 @@ export default function useApplicationData(){
             ...state.appointments,
             [id]: appointment,
           };
-          // console.log("here")
+       
           setState({
             ...state,
             appointments,
           });
-        });
+         
+        })
+
     }
   
     function cancelInterview(id){
@@ -61,7 +63,7 @@ export default function useApplicationData(){
           interviewers: all[2].data,
         }));
       });
-    }, [state.day]);
+    }, [state.appointments]);
 
     return{state, setDay, bookInterview, cancelInterview}
   }
