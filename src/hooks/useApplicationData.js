@@ -16,7 +16,9 @@ export default function useApplicationData(){
     
 
     function bookInterview(id, interview) {
-      return axios
+      
+      
+        return axios
         .put("/api/appointments/" + id, { interview: interview })
         .then((resolve) => {
           // console.log(id, interview);
@@ -35,6 +37,9 @@ export default function useApplicationData(){
           });
          
         })
+
+      
+
 
     }
   
