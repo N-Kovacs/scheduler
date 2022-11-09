@@ -28,7 +28,14 @@ export default function Form(props) {
     } else {
     setMissing("")
     console.log(student, interviewer);
-    props.onSave(student, interviewer);
+    if(props.isEdit){
+      props.onSave(student, interviewer, true);
+
+    }else{
+      props.onSave(student, interviewer);
+
+    }
+    
   }
   
   };
