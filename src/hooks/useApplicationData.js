@@ -14,24 +14,22 @@ export default function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
-  function setSpots (change){
-    const days = state.days.map(day => {
+  function setSpots(change) {
+    const days = state.days.map((day) => {
       if (day.name === state.day) {
         return {
           ...day,
-          spots: day.spots + change
+          spots: day.spots + change,
         };
       }
       return day;
     });
-    return days
+    return days;
 
-    console.log(state)
+    console.log(state);
   }
 
   function bookInterview(id, interview, isEdit) {
-
-    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -40,52 +38,48 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log(appointments)
-
+    console.log(appointments);
 
     return axios
       .put("/api/appointments/" + id, { interview: interview })
       .then((resolve) => {
-        let spotchange = state.days
-        console.log(isEdit)
-        if (isEdit === false){
-          console.log("hello")
-          spotchange = setSpots(-1)
+        let spotchange = state.days;
+        console.log(isEdit);
+        if (isEdit === false) {
+          console.log("hello");
+          spotchange = setSpots(-1);
         }
         setState({
           ...state,
           appointments,
-          days:spotchange
+          days: spotchange,
         });
-        
-        return (console.log("here"))
+
+        return console.log("here");
       })
-      .then(()=> {
-
+      .then(() => {
         //
-
         //setUpdate(prev => Number(prev) + 1)
-      //return console.log(update)
-    })
+        //return console.log(update)
+      });
   }
 
   function cancelInterview(id) {
-
     return axios
       .delete("/api/appointments/" + id, { interview: undefined })
       .then((resolve) => {
-        let spotchange = setSpots(+1)
+        let spotchange = setSpots(+1);
         setState({
           ...state,
-          days:spotchange
+          days: spotchange,
         });
 
-       // setUpdate(prev => Number(prev) + 1)
+        // setUpdate(prev => Number(prev) + 1)
       });
   }
 
   useEffect(() => {
-    console.log("THIS PROCCING?")
+    console.log("THIS PROCCING?");
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
