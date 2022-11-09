@@ -15,7 +15,6 @@ export default function Form(props) {
 
   const cancel = () => {
     setMissing("");
-    console.log("cancel");
     reset();
     props.onCancel();
   };
