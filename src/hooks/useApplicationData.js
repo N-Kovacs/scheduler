@@ -55,12 +55,21 @@ export default function useApplicationData() {
   }
   //cancels interviews
   function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
     return axios
       .delete("/api/appointments/" + id, { interview: undefined })
       .then((resolve) => {
         let spotchange = setSpots(+1);
         setState({
           ...state,
+          appointments,
           days: spotchange,
         });
       });
