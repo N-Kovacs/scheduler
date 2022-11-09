@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
@@ -22,20 +22,18 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-
-  function save(name, interviewer, isEdit= false) {
-
-      const interview = {
-        student: name,
-        interviewer,
-      };
-     
-      transition(SAVING);
-      props
-        .bookInterview(props.id, interview, isEdit)
-        .then(() => transition(SHOW))
-        .catch(err => transition(ERROR_SAVE, true));
+  function save(name, interviewer, isEdit = false) {
+    const interview = {
+      student: name,
+      interviewer,
     };
+
+    transition(SAVING);
+    props
+      .bookInterview(props.id, interview, isEdit)
+      .then(() => transition(SHOW))
+      .catch((err) => transition(ERROR_SAVE, true));
+  }
 
   function deleteIn() {
     transition(DELETING);
@@ -50,13 +48,12 @@ export default function Appointment(props) {
 
   //console.log(props.interviewers)
 
-
   ///console.log(props.interview)
 
   // console.log("HHHHHHHHHHHHHHHHHHHH", props.interviewers, props.interview, mode)
-  if (!props.interview && mode===SHOW){
-    console.log(mode)
-    console.log("why")
+  if (!props.interview && mode === SHOW) {
+    console.log(mode);
+    console.log("why");
   }
   //console.log(props.interview)
 
@@ -104,7 +101,6 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error message={"Error Deleting"} onClose={() => back()} />
       )}
-      
     </article>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -25,8 +25,6 @@ export default function useApplicationData() {
       return day;
     });
     return days;
-
-    console.log(state);
   }
 
   function bookInterview(id, interview, isEdit) {
@@ -38,15 +36,12 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log(appointments);
 
     return axios
       .put("/api/appointments/" + id, { interview: interview })
       .then((resolve) => {
         let spotchange = state.days;
-        console.log(isEdit);
         if (isEdit === false) {
-          console.log("hello");
           spotchange = setSpots(-1);
         }
         setState({
@@ -55,13 +50,8 @@ export default function useApplicationData() {
           days: spotchange,
         });
 
-        return console.log("here");
+        return
       })
-      .then(() => {
-        //
-        //setUpdate(prev => Number(prev) + 1)
-        //return console.log(update)
-      });
   }
 
   function cancelInterview(id) {
@@ -73,13 +63,10 @@ export default function useApplicationData() {
           ...state,
           days: spotchange,
         });
-
-        // setUpdate(prev => Number(prev) + 1)
       });
   }
 
   useEffect(() => {
-    console.log("THIS PROCCING?");
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),

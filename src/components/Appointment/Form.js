@@ -6,8 +6,7 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [missing, setMissing] = useState(null)
-  let lackSelections = true
+  const [missing, setMissing] = useState(null);
 
   const reset = () => {
     setStudent("");
@@ -15,29 +14,24 @@ export default function Form(props) {
   };
 
   const cancel = () => {
-    setMissing("")
+    setMissing("");
     console.log("cancel");
     reset();
     props.onCancel();
   };
   const save = () => {
     if (!student) {
-      setMissing("student name cannot be blank")
-    } else if (!interviewer){
-      setMissing("please select an interviewer")
+      setMissing("student name cannot be blank");
+    } else if (!interviewer) {
+      setMissing("please select an interviewer");
     } else {
-    setMissing("")
-    console.log(student, interviewer);
-    if(props.isEdit){
-      props.onSave(student, interviewer, true);
-
-    }else{
-      props.onSave(student, interviewer);
-
+      setMissing("");
+      if (props.isEdit) {
+        props.onSave(student, interviewer, true);
+      } else {
+        props.onSave(student, interviewer);
+      }
     }
-    
-  }
-  
   };
 
   return (
@@ -55,7 +49,9 @@ export default function Form(props) {
             }}
             data-testid="student-name-input"
           />
-          {missing && <section className="appointment__validation">{missing}</section>}
+          {missing && (
+            <section className="appointment__validation">{missing}</section>
+          )}
         </form>
         <InterviewerList
           interviewers={props.interviewers}
