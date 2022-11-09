@@ -9,34 +9,6 @@ import "components/Appointment/styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
-  function save(name, interviewer) {
-
-      const interview = {
-        student: name,
-        interviewer,
-      };
-      transition(SAVING);
-      props
-        .bookInterview(props.id, interview)
-        .then(() => {
-          transition(SHOW);
-        })
-        .catch((error) => transition(ERROR_SAVE, true));
-   
-  }
-
-  function deleteIn() {
-    transition(DELETING);
-    console.log(props.id);
-    props
-      .cancelInterview(props.id)
-      .then(() => {
-        transition(EMPTY);
-      })
-      .catch((error) => transition(ERROR_DELETE, true));
-  }
-
-  // console.log(props.interviewers)
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -46,14 +18,50 @@ export default function Appointment(props) {
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
-
-  // console.log(props.interview)
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+
+  function save(name, interviewer) {
+
+      const interview = {
+        student: name,
+        interviewer,
+      };
+     
+      transition(SAVING);
+      props
+        .bookInterview(props.id, interview)
+        .then(() => transition(SHOW))
+        .catch(err => transition(ERROR_SAVE, true));
+    };
+
+  function deleteIn() {
+    transition(DELETING);
+    //console.log(props.id);
+    props
+      .cancelInterview(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch((error) => transition(ERROR_DELETE, true));
+  }
+
+  //console.log(props.interviewers)
+
+
+  ///console.log(props.interview)
+
+  // console.log("HHHHHHHHHHHHHHHHHHHH", props.interviewers, props.interview, mode)
+  if (!props.interview && mode===SHOW){
+    console.log(mode)
+    console.log("why")
+  }
+  //console.log(props.interview)
+
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <header>{props.time}</header>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
@@ -95,6 +103,7 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error message={"Error Deleting"} onClose={() => back()} />
       )}
+      
     </article>
   );
 }
