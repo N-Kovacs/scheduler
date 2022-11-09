@@ -37,7 +37,7 @@ export default function Appointment(props) {
 
   function deleteIn() {
     transition(DELETING);
-    //console.log(props.id);
+
     props
       .cancelInterview(props.id)
       .then(() => {
@@ -46,16 +46,11 @@ export default function Appointment(props) {
       .catch((error) => transition(ERROR_DELETE, true));
   }
 
-  //console.log(props.interviewers)
 
-  ///console.log(props.interview)
-
-  // console.log("HHHHHHHHHHHHHHHHHHHH", props.interviewers, props.interview, mode)
   if (!props.interview && mode === SHOW) {
     console.log(mode);
     console.log("why");
   }
-  //console.log(props.interview)
 
   return (
     <article className="appointment" data-testid="appointment">

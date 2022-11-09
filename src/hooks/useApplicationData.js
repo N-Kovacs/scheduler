@@ -10,10 +10,9 @@ export default function useApplicationData() {
     interviewers: {},
   });
 
-  //const[update, setUpdate] = useState("")
-
   const setDay = (day) => setState({ ...state, day });
 
+  //returns spots remaining in state object for insertions into state with appointment data
   function setSpots(change) {
     const days = state.days.map((day) => {
       if (day.name === state.day) {
@@ -27,6 +26,7 @@ export default function useApplicationData() {
     return days;
   }
 
+  //books interviews, also use for edits
   function bookInterview(id, interview, isEdit) {
     const appointment = {
       ...state.appointments[id],
@@ -53,7 +53,7 @@ export default function useApplicationData() {
         return
       })
   }
-
+  //cancels interviews
   function cancelInterview(id) {
     return axios
       .delete("/api/appointments/" + id, { interview: undefined })
@@ -66,12 +66,13 @@ export default function useApplicationData() {
       });
   }
 
+  //intial data load
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
-      //axios.get("/api/debug/reset")
+      //axios.get("/api/debug/reset")  //used for reseting data
     ]).then((all) => {
       setState((prev) => ({
         ...prev,

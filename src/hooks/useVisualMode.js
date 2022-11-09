@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
-
+  //transitions in appointments
   function transition(newMode, replace = false) {
     setMode(newMode);
     if (replace) {
