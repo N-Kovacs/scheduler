@@ -1,4 +1,8 @@
 # Interview Scheduler
+Built by Nicholas Kovacs as part of Lighthouselabs project
+
+## Descriptions
+An interview scheduler. Allows booking, editing and deleting of interviews. Built in react.
 
 ## Setup
 
